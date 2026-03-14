@@ -18,7 +18,7 @@ jobs:
           dotnet-version: '6.0.x'
 
       - name: Restore and build solution
-        run: dotnet build HexManiacAdvance.sln -c Release -r win-x64 --self-contained
+        run: dotnet build HexManiacAdvance.sln -c Release
 
       - name: Publish self-contained exe
         run: >
@@ -26,7 +26,6 @@ jobs:
           -c Release
           -r win-x64
           --self-contained true
-          --no-build
           -o ./publish
 
       - name: Zip release
