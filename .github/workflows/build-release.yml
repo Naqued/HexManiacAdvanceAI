@@ -17,10 +17,10 @@ jobs:
         with:
           dotnet-version: '6.0.x'
 
-      - name: Restore and build solution
-        run: dotnet build HexManiacAdvance.sln -c Release
+      - name: Build Core
+        run: dotnet build src/HexManiac.Core/HexManiac.Core.csproj -c Release
 
-      - name: Publish self-contained exe
+      - name: Publish WPF (self-contained)
         run: >
           dotnet publish src/HexManiac.WPF/HexManiac.WPF.csproj
           -c Release
