@@ -280,7 +280,7 @@ namespace HavenSoft.HexManiac.Core.ViewModels.AI {
          return body;
       }
 
-      internal static LlmResponse ParseResponse(string json) {
+      public static LlmResponse ParseResponse(string json) {
          using var doc = JsonDocument.Parse(json);
          var root = doc.RootElement;
 

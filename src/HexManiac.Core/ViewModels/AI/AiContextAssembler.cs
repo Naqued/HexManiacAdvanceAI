@@ -41,7 +41,7 @@ namespace HavenSoft.HexManiac.Core.ViewModels.AI {
       }
 
       private void AppendRomContext(StringBuilder sb) {
-         if (editor.SelectedTab is not IViewPort vp) return;
+         if (editor?.SelectedTab is not IViewPort vp) return;
          var model = vp.Model;
          if (model == null) return;
 
@@ -55,7 +55,7 @@ namespace HavenSoft.HexManiac.Core.ViewModels.AI {
       }
 
       private void AppendEditorState(StringBuilder sb) {
-         if (editor.SelectedTab is not ViewPort vp) return;
+         if (editor?.SelectedTab is not ViewPort vp) return;
          var model = vp.Model;
 
          sb.AppendLine("## Current Editor State");
@@ -81,7 +81,7 @@ namespace HavenSoft.HexManiac.Core.ViewModels.AI {
       }
 
       private void AppendActiveToolContext(StringBuilder sb) {
-         if (editor.SelectedTab is not IViewPort vp) return;
+         if (editor?.SelectedTab is not IViewPort vp) return;
          var tools = vp.Tools;
          if (tools == null) return;
 

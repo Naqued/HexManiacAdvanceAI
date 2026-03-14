@@ -112,7 +112,7 @@ namespace HavenSoft.HexManiac.Core.ViewModels.AI {
          return total;
       }
 
-      internal static int EstimateTokens(string text) {
+      public static int EstimateTokens(string text) {
          if (string.IsNullOrEmpty(text)) return 0;
          return text.Length / 4;
       }
