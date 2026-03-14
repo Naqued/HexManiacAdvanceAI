@@ -17,9 +17,6 @@ jobs:
         with:
           dotnet-version: '6.0.x'
 
-      - name: Build Core (win-x64)
-        run: dotnet build src/HexManiac.Core/HexManiac.Core.csproj -c Release -r win-x64
-
       - name: Publish WPF (self-contained)
         run: >
           dotnet publish src/HexManiac.WPF/HexManiac.WPF.csproj
@@ -27,6 +24,7 @@ jobs:
           -r win-x64
           --self-contained true
           -o ./publish
+          -p:SolutionDir=${{ github.workspace }}/
 
       - name: Zip release
         run: Compress-Archive -Path ./publish/* -DestinationPath HexManiacAdvance-win-x64.zip
