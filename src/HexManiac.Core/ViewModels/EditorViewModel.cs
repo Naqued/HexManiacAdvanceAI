@@ -5,6 +5,7 @@ using HavenSoft.HexManiac.Core.ViewModels.DataFormats;
 using HavenSoft.HexManiac.Core.ViewModels.Images;
 using HavenSoft.HexManiac.Core.ViewModels.Map;
 using HavenSoft.HexManiac.Core.ViewModels.QuickEditItems;
+using HavenSoft.HexManiac.Core.ViewModels.AI;
 using HavenSoft.HexManiac.Core.ViewModels.Tools;
 using HavenSoft.HexManiac.Core.ViewModels.Visitors;
 using System;
@@ -440,7 +441,13 @@ namespace HavenSoft.HexManiac.Core.ViewModels {
       private StubCommand toggleShowAutomationPanelCommand;
       public ICommand ToggleShowAutomationPanelCommand => StubCommand(ref toggleShowAutomationPanelCommand, () => ShowAutomationPanel = !ShowAutomationPanel);
 
+      private bool showAiPanel;
+      public bool ShowAiPanel { get => showAiPanel; set => Set(ref showAiPanel, value); }
+      private StubCommand toggleShowAiPanelCommand;
+      public ICommand ToggleShowAiPanelCommand => StubCommand(ref toggleShowAiPanelCommand, () => ShowAiPanel = !ShowAiPanel);
+
       public PythonTool PythonTool { get; }
+      public AiToolViewModel AiTool { get; }
 
       public Singletons Singletons { get; }
 
@@ -608,6 +615,7 @@ namespace HavenSoft.HexManiac.Core.ViewModels {
          }
          PopulateRecentFilesViewModel();
          PythonTool = new PythonTool(this);
+         AiTool = new AiToolViewModel(this, fileSystem, this.workDispatcher);
          MapTutorials.Load(metadata);
       }
 

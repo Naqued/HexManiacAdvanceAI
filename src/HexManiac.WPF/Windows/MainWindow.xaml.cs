@@ -478,13 +478,28 @@ namespace HavenSoft.HexManiac.WPF.Windows {
       }
 
       // when the ViewModel changes its GotoControlViewModel subsystem, update the event handler
+      private void UpdateSidePanelVisibility() {
+         bool showPanel = ViewModel.ShowAutomationPanel || ViewModel.ShowAiPanel;
+         TabContainer.ColumnDefinitions[1].Width = showPanel ? new GridLength(PythonToolSplitter.Width) : new GridLength(0);
+         TabContainer.ColumnDefinitions[2].Width = showPanel ? new GridLength(300) : new GridLength(0);
+      }
+
       private void ViewModelPropertyChanged(object sender, PropertyChangedEventArgs e) {
          if (e.PropertyName == nameof(ViewModel.ShowAutomationPanel)) {
-            TabContainer.ColumnDefinitions[1].Width = ViewModel.ShowAutomationPanel ? new GridLength(PythonToolSplitter.Width) : new GridLength(0);
-            TabContainer.ColumnDefinitions[2].Width = ViewModel.ShowAutomationPanel ? new GridLength(300) : new GridLength(0);
+            UpdateSidePanelVisibility();
             if (ViewModel.ShowAutomationPanel) {
+               SidePanelTabs.SelectedIndex = 0;
                FocusTextBox(PythonTool.InputBox.TransparentLayer);
-            } else {
+            } else if (!ViewModel.ShowAiPanel) {
+               FocusPrimaryContent();
+            }
+         }
+         if (e.PropertyName == nameof(ViewModel.ShowAiPanel)) {
+            UpdateSidePanelVisibility();
+            if (ViewModel.ShowAiPanel) {
+               SidePanelTabs.SelectedIndex = 1;
+               AiTool.InputBox.Focus();
+            } else if (!ViewModel.ShowAutomationPanel) {
                FocusPrimaryContent();
             }
          }
