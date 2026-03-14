@@ -17,8 +17,8 @@ jobs:
         with:
           dotnet-version: '6.0.x'
 
-      - name: Build Core
-        run: dotnet build src/HexManiac.Core/HexManiac.Core.csproj -c Release
+      - name: Build Core (win-x64)
+        run: dotnet build src/HexManiac.Core/HexManiac.Core.csproj -c Release -r win-x64
 
       - name: Publish WPF (self-contained)
         run: >
