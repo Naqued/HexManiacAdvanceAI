@@ -49,17 +49,34 @@ namespace HavenSoft.HexManiac.Core.ViewModels.AI {
          this.dispatcher = dispatcher;
          settings = new AiSettings(fileSystem);
          contextAssembler = new AiContextAssembler(editor);
-         provider = new AnthropicProvider(settings);
+         provider = CreateProvider();
 
          if (!settings.IsConfigured) showSettings = true;
 
          settings.PropertyChanged += (s, e) => {
-            if (e.PropertyName == nameof(AiSettings.ProviderName) || e.PropertyName == nameof(AiSettings.ApiKey)) {
-               provider = new AnthropicProvider(settings);
+            if (e.PropertyName == nameof(AiSettings.ProviderName)) {
+               ApplyProviderDefaults(settings.ProviderName);
+               provider = CreateProvider();
+            } else if (e.PropertyName == nameof(AiSettings.ApiKey)) {
+               provider = CreateProvider();
             }
          };
 
          LoadConversation();
+      }
+
+      private ILlmProvider CreateProvider() {
+         return settings.ProviderName switch {
+            "Mistral" => new OpenAiCompatibleProvider(settings, "https://api.mistral.ai"),
+            "OpenAI" => new OpenAiCompatibleProvider(settings, "https://api.openai.com"),
+            "Ollama" => new OpenAiCompatibleProvider(settings, "http://localhost:11434"),
+            _ => new AnthropicProvider(settings),
+         };
+      }
+
+      private static void ApplyProviderDefaults(string providerName) {
+         // Defaults are applied via the CreateProvider's base URL fallback.
+         // Model names can be changed by the user in settings.
       }
 
       public void SendMessage() {

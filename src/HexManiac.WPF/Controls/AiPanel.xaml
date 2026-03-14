@@ -40,6 +40,18 @@
          </Border.Style>
          <StackPanel>
             <DockPanel Margin="0,2">
+               <TextBlock Text="Provider:" Width="65" VerticalAlignment="Center" Foreground="{DynamicResource Secondary}" FontSize="11"/>
+               <ComboBox SelectedValue="{Binding Settings.ProviderName}" IsEditable="False"
+                         FontFamily="Consolas" FontSize="11" MaxHeight="24"
+                         Background="{DynamicResource Background}" Foreground="{DynamicResource Primary}"
+                         BorderBrush="{DynamicResource Secondary}" BorderThickness="1">
+                  <System:String xmlns:System="clr-namespace:System;assembly=mscorlib">Anthropic</System:String>
+                  <System:String xmlns:System="clr-namespace:System;assembly=mscorlib">Mistral</System:String>
+                  <System:String xmlns:System="clr-namespace:System;assembly=mscorlib">OpenAI</System:String>
+                  <System:String xmlns:System="clr-namespace:System;assembly=mscorlib">Ollama</System:String>
+               </ComboBox>
+            </DockPanel>
+            <DockPanel Margin="0,2">
                <TextBlock Text="API Key:" Width="65" VerticalAlignment="Center" Foreground="{DynamicResource Secondary}" FontSize="11"/>
                <PasswordBox Name="ApiKeyBox" PasswordChanged="ApiKeyBox_PasswordChanged"
                             FontFamily="Consolas" FontSize="11" MaxHeight="24"
